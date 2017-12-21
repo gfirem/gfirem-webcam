@@ -90,27 +90,29 @@ class GFireM_Webcam_Fs {
 				// Try to load SDK from parent plugin folder.
 				require_once $classes_path . 'include/freemius/start.php';
 				$gfirem_webcam_fs = fs_dynamic_init( array(
-					'id'               => '1525',
-					'slug'             => 'qr-field',
-					'type'             => 'plugin',
-					'public_key'       => 'pk_a5ff0f40c32174e33a129a9f65c46',
-					'is_premium'       => true,
-					'has_paid_plans'   => true,
-					'is_org_compliant' => false,
-					'parent'           => array(
+					'id'                  => '1602',
+					'slug'                => 'webcam',
+					'type'                => 'plugin',
+					'public_key'          => 'pk_9ae02697e71f1690527657aeaa22d',
+					'is_premium'          => true,
+					'has_premium_version' => true,
+					'has_paid_plans'      => true,
+					'is_org_compliant'    => false,
+					'parent'              => array(
 						'id'         => '848',
 						'slug'       => 'gfirem',
 						'public_key' => 'pk_47201a0d3289152f576cfa93e7159',
 						'name'       => 'GFireM Fields',
 					),
 					'menu'                => array(
-						'slug'           => 'qr-field',
-						'first-path'     => 'admin.php?page=gfirem',
-						'support'        => false,
-						'parent'         => array(
+						'slug'       => 'webcam',
+						'first-path' => 'admin.php?page=gfirem',
+						'support'    => false,
+						'parent'     => array(
 							'slug' => 'gfirem',
 						),
 					),
+					'secret_key'          => 'sk_1c{UolX.0=ptUsNPge5<[b#OGNxp%',
 				) );
 			} else {
 				return false;
