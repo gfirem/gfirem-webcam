@@ -27,7 +27,7 @@ class GFireM_Webcam_Fs {
 			return $this->gfirem_webcam_fs_init();
 		} else if ( $this->gfirem_webcam_fs_is_parent_active() ) {
 			// Init add-on only after the parent is loaded.
-			add_action( 'gfirem_fs_loaded', array( $this, 'gfirem_qf_fs_init' ) );
+			add_action( 'gfirem_fs_loaded', array( $this, 'gfirem_webcam_fs_init' ) );
 		} else {
 			// Even though the parent is not activated, execute add-on for activation / uninstall hooks.
 			return $this->gfirem_webcam_fs_init();

@@ -6,7 +6,7 @@
  *
  * @wordpress-plugin
  * Plugin Name:       GFireM Webcam Fields
- * Description:       Add a QR field to your formidable forms!
+ * Description:       Add a Webcam field to your formidable forms!
  * Version:           1.0.0
  * Author:            gfirem
  * License:           Apache License 2.0
@@ -33,9 +33,9 @@ if (!defined('WPINC')) {
 }
 
 
-if (!class_exists('GFireM_Webcam')) {
+ if (!class_exists('GFireM_Webcam')) {
     require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'class-gfirem-webcam-field-fs.php';
-    $is_fs_loaded = GFireM_Webcam::get_instance();
+    $is_fs_loaded = GFireM_Webcam_Fs::get_instance();
     if ($is_fs_loaded !== false) {
         class GFireM_Webcam
         {
@@ -64,7 +64,7 @@ if (!class_exists('GFireM_Webcam')) {
             private function constants()
             {
                 define('GFIREM_WEBCAM_CSS_PATH', plugin_dir_url(__FILE__) . 'assets/css/');
-                define('GFIREM_WEBCAM_JS_PATH', plugin_dir_url(__FILE__) . 'assets/js/');
+                define('GFIREM_WEBCAM_ASSETS', plugin_dir_url(__FILE__) . 'assets/');
                 define('GFIREM_WEBCAM_VIEW_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
                 define('GFIREM_WEBCAM_CLASSES_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR);
             }

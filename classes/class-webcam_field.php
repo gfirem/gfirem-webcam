@@ -111,9 +111,9 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 	 * @param $hook
 	 */
     public function add_script( $hook = '', $image_url = '', $field_name ) {
-        $base_url = plugin_dir_url( __FILE__ ) . 'assets/';
-        wp_enqueue_script( 'webcam', $base_url . 'webcam.js', array( 'jquery' ), $this->version, true );
-        wp_enqueue_script( 'gfirem_webcam', $base_url . 'camera.js', array( "jquery" ), $this->version, true );
+        $base_url = GFIREM_WEBCAM_ASSETS;
+        wp_enqueue_script( 'webcam', GFIREM_WEBCAM_ASSETS . 'webcam.js', array( 'jquery' ), $this->version, true );
+        wp_enqueue_script( 'gfirem_webcam', GFIREM_WEBCAM_ASSETS . 'camera.js', array( "jquery" ), $this->version, true );
         $params          = array();
         $signatureFields = FrmField::get_all_types_in_form( $this->form_id, $this->slug );
         foreach ( $signatureFields as $key => $field ) {
@@ -162,7 +162,7 @@ class GFireMWebcamFieldController extends gfirem_field_base {
         $attachment_title  = basename( get_attached_file( $field['value'] ) );
         $button_name = FrmField::get_option( $field, 'button_title' );
         $this->add_script( '', $imageUrl, $field_name );
-        include dirname( __FILE__ ) . '/view/field_webcam.php';
+        include GFIREM_WEBCAM_VIEW_PATH . 'field_webcam.php';
     }
 
 
