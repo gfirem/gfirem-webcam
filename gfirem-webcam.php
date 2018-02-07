@@ -35,8 +35,8 @@ if (!defined('WPINC')) {
 
  if (!class_exists('GFireM_Webcam')) {
     require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR . 'class-gfirem-webcam-field-fs.php';
-    $is_fs_loaded = GFireM_Webcam_Fs::get_instance();
-    if ($is_fs_loaded !== false) {
+    GFireM_Webcam_Fs::get_instance();
+
         class GFireM_Webcam
         {
             /**
@@ -44,7 +44,14 @@ if (!defined('WPINC')) {
              *
              * @var object
              */
+
             protected static $instance = null;
+            public static $assets;
+            public static $view;
+            public static $classes;
+            public static $slug = 'gfirem-webcam';
+            public static $version = '1.0.0';
+
 
             /**
              * Initialize the plugin.
@@ -52,12 +59,16 @@ if (!defined('WPINC')) {
             private function __construct()
             {
 
-                require_once gfirem::$fields . DIRECTORY_SEPARATOR . 'gfirem_field_base.php';
-                require_once gfirem::$classes . DIRECTORY_SEPARATOR . 'gfirem_fs.php';
                 $this->constants();
+                self::$assets  = plugin_dir_url( __FILE__ ) . 'assets/';
+                self::$view    = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR;
+                self::$classes = dirname( __FILE__ ) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR;
                 $this->load_plugin_textdomain();
-                require_once GFIREM_WEBCAM_CLASSES_PATH . 'class-webcam_field.php';
-                new GFireMWebcamFieldController();
+                require_once self::$classes . 'class-gfirem-webcam-manager.php';
+                new GFiremWebcamManager();
+            }
+            static function getFreemius(){
+                return GFireM_Webcam_Fs::getFreemius();
             }
 
 
@@ -67,6 +78,24 @@ if (!defined('WPINC')) {
                 define('GFIREM_WEBCAM_ASSETS', plugin_dir_url(__FILE__) . 'assets/');
                 define('GFIREM_WEBCAM_VIEW_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR);
                 define('GFIREM_WEBCAM_CLASSES_PATH', dirname(__FILE__) . DIRECTORY_SEPARATOR . 'classes' . DIRECTORY_SEPARATOR);
+            }
+
+            /**
+             * Get plugin version
+             *
+             * @return string
+             */
+            static function getVersion() {
+                return self::$version;
+            }
+
+            /**
+             * Get plugins slug
+             *
+             * @return string
+             */
+            static function getSlug() {
+                return self::$slug;
             }
 
             /**
@@ -94,7 +123,7 @@ if (!defined('WPINC')) {
         }
 
         add_action('plugins_loaded', array('GFireM_Webcam', 'get_instance'), 9999);
-    }
+
 } else {
     //TODO necesita notificar aqui que no esta insalado el core
 }
