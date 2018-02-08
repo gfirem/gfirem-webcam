@@ -14,10 +14,11 @@ jQuery(document).ready(function ($) {
 			identifier = field_container.attr('id');
 		id = identifier.replace('field_', '');
 		Webcam.set({
-			width: 320,
-			height: 240,
-			image_format: 'jpeg',
-			jpeg_quality: 90
+			width: gfirem_webcam.config[identifier].width,
+			height: gfirem_webcam.config[identifier].height,
+			image_format: 'png',
+			jpeg_quality: gfirem_webcam.config[identifier].jpeg_quality,
+            fps	: gfirem_webcam.config[identifier].fps
 		});
 		Webcam.attach('#my_camera_' + id);
 		if (gfirem_webcam.action && (gfirem_webcam.action === 'edit' || gfirem_webcam.action === 'update')) {

@@ -22,6 +22,10 @@ class GFireMWebcamField extends GFireMFieldBase
                 'button_css' => '',
                 'activate_zoom' => 'true',
                 'scroll_zoom' => 'false',
+                'width'           => '300',
+                'height'          => '150',
+                'fps'             => '30',
+                'jpeg_quality'    => '90'
             ),
             __('Take a Snapshot whit the webcam.', 'gfirem_webcam-locale'), array()
         );
@@ -123,7 +127,7 @@ class GFireMWebcamField extends GFireMFieldBase
         foreach ($signatureFields as $key => $field) {
             foreach ($this->defaults as $def_key => $def_val) {
                 $opt = FrmField::get_option($field, $def_key);
-                $params['config']['field_' . $field->field_key][$def_key] = (!empty($opt)) ? $opt : $def_val;
+                $params['config']['field_' . $field->id][$def_key] = (!empty($opt)) ? $opt : $def_val;
             }
             if (!empty($image_url)) {
                 $params['config']['item_meta[' . $field->id . ']']['image_url'] = $image_url;
