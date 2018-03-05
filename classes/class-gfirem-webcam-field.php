@@ -9,31 +9,26 @@
  * @license    http://www.apache.org/licenses/
  *
  */
-class GFireMWebcamFieldController extends gfirem_field_base {
-
+class GFireMWebcamFieldController extends GFireMFieldBase {
+	
 	public $version = '1.0.0';
-
+	
 	public function __construct() {
-		parent::__construct( 'webcam_field', gfirem_manager::translate( 'Webcam Field' ),
+		parent::__construct( 'webcam_field', __( 'Webcam Field', 'gfirem-webcam-field-locale' ),
 			array(
-				'button_title'  => gfirem_manager::translate( 'Take Snapshot' ),
+				'button_title'  => __( 'Take Snapshot', 'gfirem-webcam-field-locale' ),
 				'button_css'    => '',
 				'activate_zoom' => 'true',
 				'scroll_zoom'   => 'false',
 			),
-			gfirem_manager::translate( 'Take a Snapshot whit the webcam.' ), array()
+			__( 'Take a Snapshot whit the webcam.', 'gfirem-webcam-field-locale' ), array('icon' => 'dashicons dashicons-camera')
 		);
-
+		
 		add_filter( 'frm_pre_create_entry', array( $this, 'process_pre_create_entry' ), 10, 1 );
 		add_filter( 'frm_pre_update_entry', array( $this, 'process_pre_update_entry' ), 10, 2 );
 		add_action( 'frm_before_destroy_entry', array( $this, 'process_destroy_entry' ), 10, 2 );
-		add_filter( 'gfirem_fields_array', array( $this, 'register_extension' ) );
 	}
-
-	public function register_extension( $extension ) {
-		return array_merge( $extension, array( 'webcam_field' => GFIREM_WEBCAM_CLASSES_PATH . 'class-webcam_field.php' ) );
-	}
-
+	
 	/**
 	 * Destroy the attached image to the entry
 	 *
@@ -49,14 +44,14 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 			}
 		}
 	}
-
-
+	
+	
 	public function process_pre_update_entry( $values, $entry_id ) {
 		$values['item_meta'] = $this->save_snapshot( $values['item_meta'], $values['form_id'], true );
-
+		
 		return $values;
 	}
-
+	
 	public function save_snapshot( $fields_collections, $form_id, $delete_before = false ) {
 		$params = array();
 		foreach ( $fields_collections as $key => $value ) {
@@ -97,25 +92,26 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 				}
 			}
 		}
-
+		
 		return $fields_collections;
 	}
-
+	
 	public function process_pre_create_entry( $values ) {
 		$values['item_meta'] = $this->save_snapshot( $values['item_meta'], $values['form_id'] );
-
+		
 		return $values;
 	}
-
+	
 	/**
 	 * Add script needed to load the field
 	 *
-	 * @param $hook
+	 * @param string $hook
+	 * @param string $image_url
+	 * @param $field_name
 	 */
 	public function add_script( $hook = '', $image_url = '', $field_name ) {
-		$base_url = GFIREM_WEBCAM_ASSETS;
-		wp_enqueue_script( 'webcam', GFIREM_WEBCAM_ASSETS . 'webcam.js', array( 'jquery' ), $this->version, true );
-		wp_enqueue_script( 'gfirem_webcam', GFIREM_WEBCAM_ASSETS . 'camera.js', array( "jquery" ), $this->version, true );
+		wp_enqueue_script( 'webcam', GFireM_Webcam::$assets . 'js/webcam.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'gfirem_webcam', GFireM_Webcam::$assets . 'js/camera.js', array( "jquery" ), $this->version, true );
 		$params          = array();
 		$signatureFields = FrmField::get_all_types_in_form( $this->form_id, $this->slug );
 		foreach ( $signatureFields as $key => $field ) {
@@ -132,8 +128,7 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 		}
 		wp_localize_script( 'gfirem_webcam', 'gfirem_webcam', $params );
 	}
-
-
+	
 	/**
 	 * Options inside the form
 	 *
@@ -142,9 +137,9 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 	 * @param $values
 	 */
 	protected function inside_field_options( $field, $display, $values ) {
-		include GFIREM_WEBCAM_VIEW_PATH . 'field_option.php';
+		include GFireM_Webcam::$view . 'field_option.php';
 	}
-
+	
 	protected function field_front_view( $field, $field_name, $html_id ) {
 		$field['value'] = stripslashes_deep( $field['value'] );
 		$html_id        = $field['id'];
@@ -162,28 +157,26 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 		$attachment_title = basename( get_attached_file( $field['value'] ) );
 		$button_name      = FrmField::get_option( $field, 'button_title' );
 		$this->add_script( '', $imageUrl, $field_name );
-		include GFIREM_WEBCAM_VIEW_PATH . 'field_webcam.php';
+		include GFireM_Webcam::$view . 'field_webcam.php';
 	}
-
-
+	
+	
 	protected function field_admin_view( $value, $field, $attr ) {
 		$value = $this->getMicroImage( $value );
-
+		
 		return $value;
 	}
-
+	
 	private function getMicroImage( $id ) {
 		$result = '';
 		$src    = wp_get_attachment_url( $id );
-		if ( gfirem_fs::getFreemius()->is_plan__premium_only( gfirem_fs::$professional ) ) {
-			if ( ! empty( $id ) && ! empty( $src ) ) {
-				$result = wp_get_attachment_image( $id, array( 50, 50 ), true ) . " <a style='vertical-align: top;' target='_blank' href='" . $src . "'>" . gfirem_manager::translate( "Full Image" ) . "</a>";
-			}
+		if ( ! empty( $id ) && ! empty( $src ) ) {
+			$result = wp_get_attachment_image( $id, array( 50, 50 ), true ) . " <a style='vertical-align: top;' target='_blank' href='" . $src . "'>" . __( "Full Image", 'gfirem-webcam-field-locale' ) . "</a>";
 		}
-
+		
 		return $result;
 	}
-
+	
 	protected function process_short_code( $id, $tag, $attr, $field ) {
 		$internal_attr = shortcode_atts( array(
 			'output' => 'img',
@@ -198,8 +191,8 @@ class GFireMWebcamFieldController extends gfirem_field_base {
 			$result = "<a style='vertical-align: top;' target='_blank'  href='" . wp_get_attachment_url( $id ) . "' >" . $result . "</a>";
 		}
 		$replace_with = $result;
-
+		
 		return $replace_with;
 	}
-
+	
 }
