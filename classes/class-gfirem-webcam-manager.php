@@ -19,7 +19,7 @@ class GFireMWebcamManager {
 				if ( GFireM_Webcam::getFreemius()->is_paying() ) {
 					require_once 'class-gfirem-fieldbase.php';
 					require_once 'class-gfirem-webcam-field.php';
-					new GFireMWebcamFieldController();
+					new GFireMWebcamField();
 				}
 			} else {
 				add_action( 'admin_notices', array( $this, 'required_formidable_pro' ) );
