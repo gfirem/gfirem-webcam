@@ -13,12 +13,14 @@ jQuery(document).ready(function ($) {
 		var field_container = $(this).find("[data-action=store-snapshot]"),
 			identifier = field_container.attr('id');
 		id = identifier.replace('field_', '');
+		var autoscaling = Math.ceil( (gfirem_webcam.config[identifier].width/2) *1.5);
 		Webcam.set({
 			width: gfirem_webcam.config[identifier].width,
-			height: gfirem_webcam.config[identifier].height,
-			image_format: 'png',
+			height: autoscaling,
+			image_format: 'jpeg',
 			jpeg_quality: gfirem_webcam.config[identifier].jpeg_quality,
-            fps	: gfirem_webcam.config[identifier].fps
+			fps	: gfirem_webcam.config[identifier].fps,
+            flip_horiz: true
 		});
 		Webcam.attach('#my_camera_' + id);
 		if (gfirem_webcam.action && (gfirem_webcam.action === 'edit' || gfirem_webcam.action === 'update')) {
@@ -31,12 +33,14 @@ jQuery(document).ready(function ($) {
 				$('#my_camera_' + id).show();
 			}
 
+
 			Webcam.snap(function (data_uri) {
 				// display results in page
 				$('#field_' + id).val(data_uri);
 			});
 			// freeze camera so user can preview pic
-			Webcam.freeze();
+            Webcam.freeze();
+
 			// swap button sets
 
 			document.getElementById('pre_take_buttons').style.display = 'none';
