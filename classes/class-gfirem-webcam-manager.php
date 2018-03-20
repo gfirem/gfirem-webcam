@@ -17,6 +17,8 @@ class GFireMWebcamManager {
 			//Check formidable pro
 			if ( class_exists( 'FrmAppHelper' ) && method_exists( 'FrmAppHelper', 'pro_is_installed' ) && FrmAppHelper::pro_is_installed() ) {
 				if ( GFireM_Webcam::getFreemius()->is_paying() ) {
+                    require_once 'class-gfirem-webcam-admin.php';
+                    new GFiremWebcamAdmin();
 					require_once 'class-gfirem-fieldbase.php';
 					require_once 'class-gfirem-webcam-field.php';
 					new GFireMWebcamField();

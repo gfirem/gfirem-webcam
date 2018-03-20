@@ -6,10 +6,13 @@
  * Time: 23:15
  */
 ?>
+<div class="gfirem_webcam_admin">
+    <input data-action="store-snapshot-admin" type="hidden" id="field_<?php echo esc_attr( $html_id ) ?>" />
+
 <tr>
 	<td><label for="height_<?php echo esc_attr( $field['id'] ) ?>"><?php _e( "Height","gfirem_webcam-locale" ) ?></label></td>
 <td>
-    <label for="height_<?php echo esc_attr( $field['id'] ) ?>" class="howto"><?php echo esc_attr( __( "Height of the live camera viewer in pixels, by default '150'. ",'gfirem_webcam-locale' ) ) ?></label>
+    <label for="height_<?php echo esc_attr( $field['id'] ) ?>" class="howto"><?php echo esc_attr( __( "Height of the live camera viewer in pixels, by default '240'. ",'gfirem_webcam-locale' ) ) ?></label>
 
     <input type="number" name="field_options[height_<?php echo esc_attr( $field['id'] ) ?>]" value="<?php echo esc_attr($field['height'])?>"  id="height_<?php echo esc_attr( $field['id'] ) ?>">
 </td>
@@ -18,7 +21,7 @@
 <tr>
     <td><label for="width_<?php echo esc_attr( $field['id'] ) ?>"><?php _e( "Width" ,'gfirem_webcam-locale') ?></label></td>
     <td>
-        <label for="width_<?php echo esc_attr( $field['id'] ) ?>" class="howto"><?php echo esc_attr( __( "Width of the live camera viewer in pixels, by default '300'. ",'gfirem_webcam-locale' ) ) ?></label>
+        <label for="width_<?php echo esc_attr( $field['id'] ) ?>" class="howto"><?php echo esc_attr( __( "Width of the live camera viewer in pixels, by default '320'. ",'gfirem_webcam-locale' ) ) ?></label>
 
         <input type="number" name="field_options[width_<?php echo esc_attr( $field['id'] ) ?>]" value="<?php echo esc_attr($field['width'])?>"  id="width_<?php echo esc_attr( $field['id'] ) ?>">
     </td>
@@ -44,4 +47,4 @@
 
 </tr>
 
-
+</div>

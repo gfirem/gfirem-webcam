@@ -20,8 +20,8 @@ class GFireMWebcamField extends GFireMFieldBase {
 				'button_css'    => '',
 				'activate_zoom' => 'true',
 				'scroll_zoom'   => 'false',
-				'width'         => '300',
-				'height'        => '150',
+				'width'         => '320',
+				'height'        => '240',
 				'fps'           => '30',
 				'jpeg_quality'  => '90'
 			),
@@ -140,11 +140,13 @@ class GFireMWebcamField extends GFireMFieldBase {
 	 * @param $values
 	 */
 	protected function inside_field_options( $field, $display, $values ) {
+        $html_id        = $field['id'];
 		include GFireM_Webcam::$view . 'field_option.php';
 	}
 	
 	protected function field_front_view( $field, $field_name, $html_id ) {
 		$field['value'] = stripslashes_deep( $field['value'] );
+		$widthProperty = $field['width'];
 		$html_id        = $field['id'];
 		$print_value    = $field['default_value'];
 		if ( ! empty( $field['value'] ) ) {

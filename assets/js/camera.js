@@ -13,10 +13,10 @@ jQuery(document).ready(function ($) {
 		var field_container = $(this).find("[data-action=store-snapshot]"),
 			identifier = field_container.attr('id');
 		id = identifier.replace('field_', '');
-		var autoscaling = Math.ceil( (gfirem_webcam.config[identifier].width/2) *1.5);
+		//var autoscaling = Math.ceil( (gfirem_webcam.config[identifier].width/2) *1.5);
 		Webcam.set({
 			width: gfirem_webcam.config[identifier].width,
-			height: autoscaling,
+			height: gfirem_webcam.config[identifier].height,
 			image_format: 'jpeg',
 			jpeg_quality: gfirem_webcam.config[identifier].jpeg_quality,
 			fps	: gfirem_webcam.config[identifier].fps,
