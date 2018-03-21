@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class GFiremWebcamAdmin {
+class GFireMWebcamAdmin {
 
     public static $type = "webcam_field";
 
@@ -25,7 +25,7 @@ class GFiremWebcamAdmin {
 
     public function enqueue_js( $hook ) {
 
-        wp_enqueue_script( 'gfirem_webcam_admin', GFireM_Webcam::$assets . 'js/camera_admin.js', array( "jquery" ), $this->version, true );
+        wp_enqueue_script( 'gfirem_webcam_admin', GFireM_Webcam::$assets . 'js/camera_admin.js', array( "jquery" ), GFireM_Webcam::getVersion(), true );
 
 
     }
