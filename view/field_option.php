@@ -47,4 +47,18 @@
 
 </tr>
 
+    <tr>
+        <td><label for="submmit_photo_<?php echo esc_attr( $field['id'] ) ?>"><?php _e( "Take photo when the form is submited" ,"gfirem_date_time-locale") ?></label></td>
+        <td>
+            <label for="submmit_photo_<?php echo esc_attr( $field['id'] ) ?>" class="howto"><?php echo esc_attr( _e( "Take photo when the form is submited, by default is 'True'. ","gfirem_date_time-locale" ) ) ?></label>
+
+            <select name="field_options[submmit_photo_<?php echo esc_attr( $field['id'] ) ?>]" id="submmit_photo_<?php echo esc_attr( $field['id'] ) ?>">
+                <option <?php selected( esc_attr( $field['submmit_photo'] ), 'true' ) ?> value="true"><?php _e( "True","gfirem_date_time-locale" ) ?></option>
+                <option <?php selected( esc_attr( $field['submmit_photo'] ), 'false' ) ?> value="false"><?php _e( "False","gfirem_date_time-locale" ) ?></option>
+            </select>
+        </td>
+
+    </tr>
+
+
 </div>

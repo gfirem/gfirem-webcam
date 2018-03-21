@@ -23,7 +23,8 @@ class GFireMWebcamField extends GFireMFieldBase {
 				'width'         => '320',
 				'height'        => '240',
 				'fps'           => '30',
-				'jpeg_quality'  => '90'
+				'jpeg_quality'  => '90',
+                'submmit_photo'  =>'true'
 			),
 			__( 'Take a Snapshot whit the webcam.', 'gfirem-webcam-field-locale' ), array( 'icon' => 'dashicons dashicons-camera' )
 		);

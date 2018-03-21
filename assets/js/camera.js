@@ -9,6 +9,21 @@
  */
 jQuery(document).ready(function ($) {
 
+
+    $( "form" ).submit(function( event ) {
+        $('.gfirem_webcam').each(function () {
+
+            var field_container = $(this).find("[data-action=store-snapshot]"),
+                identifier = field_container.attr('id');
+            id = identifier.replace('field_', '');
+            var submit_photo =  gfirem_webcam.config[identifier].submmit_photo == "true" ? true : false;
+            if(submit_photo){
+                $('#webcam_button_' + id).click();
+			}
+
+		})
+    });
+
 	$('.gfirem_webcam').each(function () {
 		var field_container = $(this).find("[data-action=store-snapshot]"),
 			identifier = field_container.attr('id');
